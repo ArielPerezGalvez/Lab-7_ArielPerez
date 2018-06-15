@@ -7,10 +7,6 @@ package lab_7.arielperez;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author ariel
- */
 public class carro {
 
     private String nombre;

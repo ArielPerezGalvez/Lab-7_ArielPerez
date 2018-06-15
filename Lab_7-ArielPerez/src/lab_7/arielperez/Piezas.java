@@ -5,12 +5,12 @@
  */
 package lab_7.arielperez;
 
-/**
- *
- * @author ariel
- */
+import java.util.ArrayList;
+
 public class Piezas {
 
+    Object padre;
+    ArrayList<Piezas> hijas = new ArrayList();
     private String nombre;
     private String material;
     private int tiempo;
@@ -18,10 +18,27 @@ public class Piezas {
     public Piezas() {
     }
 
-    public Piezas(String nombre, String material, int tiempo) {
+    public Piezas(Object padre, String nombre, String material, int tiempo) {
+        this.padre = padre;
         this.nombre = nombre;
         this.material = material;
         this.tiempo = tiempo;
+    }
+
+    public Object getPadre() {
+        return padre;
+    }
+
+    public void setPadre(Object padre) {
+        this.padre = padre;
+    }
+
+    public ArrayList<Piezas> getHijas() {
+        return hijas;
+    }
+
+    public void setHijas(ArrayList<Piezas> hijas) {
+        this.hijas = hijas;
     }
 
     public String getNombre() {
@@ -52,5 +69,9 @@ public class Piezas {
     public String toString() {
         return nombre;
     }
+    
+    
+    
+    
 
 }

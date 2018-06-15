@@ -7,6 +7,8 @@ package lab_7.arielperez;
 
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -21,6 +23,10 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Principal");
         this.setLocationRelativeTo(this);
+        Thread l = new Thread();
+        
+        
+        
     }
 
     /**
@@ -121,8 +127,8 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(tiempo, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(creo)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -171,6 +177,11 @@ public class Inicio extends javax.swing.JFrame {
         jLabel8.setText("Mostrar");
 
         jButton3.setText("Ensamblar carro");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Carro");
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -205,9 +216,9 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
@@ -238,22 +249,24 @@ public class Inicio extends javax.swing.JFrame {
 
     private void creaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_creaMouseClicked
         // TODO add your handling code here:
+//añadir al combo de los autos
         try {
-            if (tnombre.getText().equals(vacio) || tmaterial.getText().equals(vacio) || tiempo.getText().equals(vacio)) {
-                car.add(new carro(tnombre.getText()));
-                DefaultComboBoxModel m = new DefaultComboBoxModel(car.toArray());
-                combo.setModel(m);
-                tnombre.setText("");
-            } else {
-                lis.add(new Piezas(tpieza.getText(), tmaterial.getText(), Integer.parseInt(tiempo.getText())));
-                DefaultComboBoxModel modelo = new DefaultComboBoxModel(lis.toArray());
-                combo1.setModel(modelo);
-                tpieza.setText("");
-                tmaterial.setText("");
-                tiempo.setText("");
-            }
-        } catch (Exception e) {
+            carro cars = new carro(tnombre.getText());
+            car.add(cars);
+            tnombre.setText("");
+            DefaultComboBoxModel m = (DefaultComboBoxModel) combo.getModel();
+            m.addElement(cars);
+            combo.setModel(m);
+            DefaultComboBoxModel m2 = (DefaultComboBoxModel) combo1.getModel();
+            m2.addElement(cars);
+            combo1.setModel(m2);
 
+            //     combo.setModel(m);
+            //       combo1.setModel(m);
+            //   tnombre.setText("");
+            //   lis.add(new Piezas(tpieza.getText(), tmaterial.getText(), Integer.parseInt(tiempo.getText())));
+//            combo.addItem(lis.toString());
+        } catch (Exception e) {
         }
 
 
@@ -272,19 +285,80 @@ public class Inicio extends javax.swing.JFrame {
 
     private void creoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_creoMouseClicked
         // TODO add your handling code here:
-
         try {
-            lis.add(new Piezas(tpieza.getText(), tmaterial.getText(), Integer.parseInt(tiempo.getText())));
+            //llis.add(new Piezas(tpieza.getText(), tmaterial.getText(), Integer.parseInt(tiempo.getText())));
+            // DefaultComboBoxModel mode = new DefaultComboBoxModel(lis.toArray());
+
+            // combo.setModel(mode);
+            Piezas pis;
+            String m = tmaterial.getText();
+            String n = tpieza.getText();
+            int t = Integer.parseInt(tiempo.getText());
+            DefaultComboBoxModel mo = (DefaultComboBoxModel) combo.getModel();
+            ////////////////////////////////////////////////////////////////////////////////////////////
+            if (mo.getSelectedItem() instanceof carro) {
+                carro padre = car.get(car.indexOf((carro) mo.getSelectedItem()));
+                pis = new Piezas(padre, n, m, t);
+                padre.getLista().add(pis);
+                mo.addElement(pis);
+                tpieza.setText("");
+                tmaterial.setText("");
+                tiempo.setText("");
+                /* car.add(new carro(tnombre.getText()));
+            DefaultComboBoxModel m = new DefaultComboBoxModel(car.toArray());
+            combo1.setModel(m);
+            tnombre.setText("");*/
+ /*  lis.add(new Piezas(tpieza.getText(), tmaterial.getText(), Integer.parseInt(tiempo.getText())));
             DefaultComboBoxModel modelo = new DefaultComboBoxModel(lis.toArray());
             combo1.setModel(modelo);
             tpieza.setText("");
             tmaterial.setText("");
-            tiempo.setText("");
+            tiempo.setText("");*/
+
+            } else {
+
+                /* car.add(new carro(tnombre.getText()));
+            DefaultComboBoxModel m = new DefaultComboBoxModel(car.toArray());
+            combo1.setModel(m);
+            tnombre.setText("");*/
+ /*  lis.add(new Piezas(tpieza.getText(), tmaterial.getText(), Integer.parseInt(tiempo.getText())));
+            DefaultComboBoxModel modelo = new DefaultComboBoxModel(lis.toArray());
+            combo1.setModel(modelo);
+            tpieza.setText("");
+            tmaterial.setText("");
+            tiempo.setText("");*/
+                Piezas padre = (Piezas) mo.getSelectedItem();
+                pis = new Piezas(padre, n, m, t);
+                padre.getHijas().add(pis);
+                mo.addElement(pis);
+
+            }
+            combo.setModel(mo);
         } catch (Exception e) {
 
         }
 
     }//GEN-LAST:event_creoMouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+
+        Hilo hilo = new Hilo((carro) combo1.getSelectedItem());
+        hilo.start();
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    public void llevar_arbol(Object raiz, DefaultTreeModel nodo) {
+        
+        try {
+            if (raiz instanceof carro ) {
+                for (Piezas li : lis) {
+                    
+                }
+            }
+            
+            
+        } catch (Exception e) {
+        }
+    }
 
     /**
      * @param args the command line arguments
