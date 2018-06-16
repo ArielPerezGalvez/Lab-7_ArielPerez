@@ -8,7 +8,9 @@ package lab_7.arielperez;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 
 /**
  *
@@ -24,9 +26,7 @@ public class Inicio extends javax.swing.JFrame {
         this.setTitle("Principal");
         this.setLocationRelativeTo(this);
         Thread l = new Thread();
-        
-        
-        
+
     }
 
     /**
@@ -60,8 +60,9 @@ public class Inicio extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        arbole = new javax.swing.JTree();
         combo1 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         eliminarcarro.setText("Eliminar pieza");
         menu.add(eliminarcarro);
@@ -184,13 +185,20 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Carro");
-        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jTree1.addMouseListener(new java.awt.event.MouseAdapter() {
+        arbole.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        arbole.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTree1MouseClicked(evt);
+                arboleMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTree1);
+        jScrollPane1.setViewportView(arbole);
+
+        jButton1.setText("Llenar arbol");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -199,17 +207,19 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(171, 171, 171)
-                        .addComponent(jButton3))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(112, 112, 112)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(185, 185, 185)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))))
-                .addContainerGap(142, Short.MAX_VALUE))
+                            .addComponent(jLabel8)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addComponent(jButton3)
+                        .addGap(37, 37, 37)
+                        .addComponent(jButton1)))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +231,9 @@ public class Inicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton1))
                 .addGap(26, 26, 26))
         );
 
@@ -233,7 +245,7 @@ public class Inicio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -272,7 +284,7 @@ public class Inicio extends javax.swing.JFrame {
 
     }//GEN-LAST:event_creaMouseClicked
 
-    private void jTree1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTree1MouseClicked
+    private void arboleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_arboleMouseClicked
         // TODO add your handling code here:
         try {
             if (evt.isMetaDown()) {
@@ -281,7 +293,7 @@ public class Inicio extends javax.swing.JFrame {
         } catch (Exception e) {
 
         }
-    }//GEN-LAST:event_jTree1MouseClicked
+    }//GEN-LAST:event_arboleMouseClicked
 
     private void creoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_creoMouseClicked
         // TODO add your handling code here:
@@ -346,16 +358,61 @@ public class Inicio extends javax.swing.JFrame {
         hilo.start();
     }//GEN-LAST:event_jButton3MouseClicked
 
-    public void llevar_arbol(Object raiz, DefaultTreeModel nodo) {
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        DefaultTreeModel m = (DefaultTreeModel) arbole.getModel();
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
         
+        
+        //DefaultMutableTreeNode cas;
+       // cas=new DefaultMutableTreeNode(new carro());
+        llevar_arbol((carro)combo.getSelectedItem(),raiz);
+
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    public void llevar_arbol(Object raiz, DefaultMutableTreeNode nodo) {
+        /*  lis.add(new Piezas(tpieza.getText(), tmaterial.getText(), Integer.parseInt(tiempo.getText())));
+            DefaultComboBoxModel modelo = new DefaultComboBoxModel(lis.toArray());
+            combo1.setModel(modelo);
+            tpieza.setText("");
+            tmaterial.setText("");
+            tiempo.setText("");*/
         try {
-            if (raiz instanceof carro ) {
-                for (Piezas li : lis) {
-                    
+            if (raiz instanceof carro) {
+                for (Piezas li : ((carro) raiz).getLista()) {
+                    /*for (Piezas carro : lis.get(WIDTH)) {
+                        System.out.println(carro);
+                    }*/
+                    if (li.getHijas().isEmpty()) {
+                        DefaultMutableTreeNode mut = new DefaultMutableTreeNode(li);;
+//                        nodo.addTreeModelListener(l);
+                        nodo.add(mut);
+                    } else {
+                        /*if (li.getHijas().isEmpty()) {
+                        DefaultTreeNode mut = new DefaultTreeNode(li);;
+//                        nodo.addTreeModelListener(l);
+                        nodo.add(mut);
+                    }*/
+                        DefaultMutableTreeNode mut = new DefaultMutableTreeNode(li);
+                        nodo.add(mut);
+                        llevar_arbol(li, mut);
+
+                    }
+                }
+            } else {
+                // JOptionPane.showMessageDialog(this, "funciona");
+                for (Piezas list : ((Piezas) raiz).getHijas()) {
+                    if (list.getHijas().isEmpty()) {
+                        DefaultMutableTreeNode no = new DefaultMutableTreeNode(list);
+                        nodo.add(no);
+                    } else {
+                        DefaultMutableTreeNode no = new DefaultMutableTreeNode(list);
+                        nodo.add(no);
+                        llevar_arbol(list, no);
+                    }
                 }
             }
-            
-            
+
         } catch (Exception e) {
         }
     }
@@ -396,11 +453,13 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTree arbole;
     private javax.swing.JComboBox<String> combo;
     private javax.swing.JComboBox<String> combo1;
     private javax.swing.JButton crea;
     private javax.swing.JButton creo;
     private javax.swing.JMenuItem eliminarcarro;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -414,7 +473,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTree jTree1;
     private javax.swing.JPopupMenu menu;
     private javax.swing.JTextField tiempo;
     private javax.swing.JTextField tmaterial;
